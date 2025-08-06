@@ -21,16 +21,37 @@ function agregarNombres() {
     // agregando el nombre ingresado a la lista.
     nombresDeAmigos.push(nombre);
     document.getElementById("amigo").value = '';
+    mostrarNombres()
     console.log(nombresDeAmigos.length);
     console.log(nombresDeAmigos);
 }
 
-// función para mostrar al usuario los nombres ingresados.
+// funcion para actualizar la lista de amigos
 function mostrarNombres() {
-    let listaAmigos = document.getElementById("listaAmigos");
-    listaAmigos.innerHTML = '';
-    
-    let mostrar = document.getElementById("resultado");
-    mostrar.textContent = nombresDeAmigos;
+    const listaAmigos = document.getElementById("listaAmigos"); // Obtener el elemento de la lista
+    listaAmigos.innerHTML = ""; // Limpiar la lista existente
+
+    // recorrer sobre el arreglo y agregar cada nombre como <li>
+    for (let i = 0; i < nombresDeAmigos.length; i++) {
+        const nuevoLi = document.createElement("li");
+        nuevoLi.textContent = nombresDeAmigos[i];
+        listaAmigos.appendChild(nuevoLi);
+    }
 }
-mostrarNombres();
+
+// funcion para sortear los nombres de amigos.
+function sortearAmigo() {
+    // Validar que haya amigos disponibles
+    if (nombresDeAmigos.length === 0) {
+        alert('No hay amigos para sortear.');
+        return;
+    }
+
+    let indiceAleatorio = Math.floor(Math.random() * nombresDeAmigos.length); // Generar un índice aleatorio
+
+    let nombreSorteado = nombresDeAmigos[indiceAleatorio]; // Obtener el nombre sorteado
+
+    // Mostrar el resultado
+    let resultado = document.getElementById("resultado");
+    resultado.innerHTML = `<li>Amigo sorteado: <strong>${nombreSorteado}</strong></li>`;
+}
